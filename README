@@ -1,0 +1,1 @@
+2022.08.01 時点、 AWS Lake Formation blueprint `incremental database` で生成された jdbc_incremental.py では失敗してしまう為、修正します。
