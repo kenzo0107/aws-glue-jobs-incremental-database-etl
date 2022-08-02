@@ -319,7 +319,7 @@ class Driver(object):
     def should_process_table(self, job_index, num_jobs):
         def h(table_config):
             catalog_table_name = table_config['catalog_table_name']
-            md5 = int(hashlib.md5(catalog_table_name).hexdigest(), 16)
+            md5 = int(hashlib.md5(catalog_table_name.encode('utf-8')).hexdigest(), 16)
             return (md5 % num_jobs) == job_index
 
         return h
