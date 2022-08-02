@@ -522,7 +522,9 @@ class Driver(object):
             conf = {}
             conf['sourceType'] = "JDBC"
             tableName = i['tableName']
-            catalog_table_name = filter(lambda x: x.endswith(tableName), table_list)
+            catalog_table_name = list(
+                filter(lambda x: x.endswith(tableName), table_list)
+            )
             if len(catalog_table_name) != 1:
                 raise Exception(
                     "Could not find table {} in database {}".format(
@@ -541,7 +543,9 @@ class Driver(object):
             conf['partition_spec'] = i.get('partitionSpec')
             result.append(conf)
 
-        selected_tables = filter(self.should_process_table(job_index, num_jobs), result)
+        selected_tables = list(
+            filter(self.should_process_table(job_index, num_jobs), result)
+        )
         print(
             "[INFO]: Will process {} tables: {}".format(
                 len(selected_tables),
