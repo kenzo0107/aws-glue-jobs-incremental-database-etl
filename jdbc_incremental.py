@@ -518,12 +518,18 @@ class Driver(object):
                 break
         result = []
 
+        # Lake Formation に指定した Source data path: `<database>/%` とした際の `<database>` を直接指定
+        # <database> を適宜変換して利用してください
+        database_schema = '<database>'
+
         for i in table_config:
             conf = {}
             conf['sourceType'] = "JDBC"
             tableName = i['tableName']
             catalog_table_name = list(
-                filter(lambda x: x.endswith(tableName), table_list)
+                filter(
+                    lambda x: x.endswith(database_schema + '_' + tableName), table_list
+                )
             )
             if len(catalog_table_name) != 1:
                 raise Exception(
